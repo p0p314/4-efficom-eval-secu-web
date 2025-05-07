@@ -23,22 +23,26 @@ const create = async (req, res, next) => {
         return res.status(404).json({ message: "Le rôle Member n'as pas été trouvé" });
     }
 
+    let userToCreate = {};
+
     if(req.body.email && req.body.email != null && req.body.email != ""){
-        userToUpdate.email = req.body.email;
+        userToCreate.email = req.body.email;
     }
     
     if(req.body.password && req.body.password != null && req.body.password != ""){
-        if(req.body.password == req.body.confirmPassword) {
+        if(req.body.password != req.body.confirmPassword) {
+            return res.status(404).json({error: " Mot de passe incorrect"})
+
         }
         passwordComplexity(complexityOptions).validate(req.body.password);
-        userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+        userToCreate.password = bcrypt.hashSync(req.body.password, 10);
 
 
     }
     try {
         let result = await User.create({
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 10),
+            email: userToCreate.email,
+            password: userToCreate.password,
             roles: [member.id]
         });
         res.status(201).json(result);
