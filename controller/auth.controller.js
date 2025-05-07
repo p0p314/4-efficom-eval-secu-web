@@ -2,6 +2,7 @@ const User = require('./../model/user.schema.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { passwordComplexity, complexityOptions } = require('../middleware/passwordCheck.middleware.js');
+const Role = require('../model/role.schema.js');
 
 const login = (req, res, next) => {
     let user = User.getByEmail(req.body.email);
@@ -29,8 +30,9 @@ const signIn = async (req,res,next) => {
         return res.status(404).json({ message: "Le rôle Member n'as pas été trouvé" });
     }
 
+    let userToCreate = {};
     if(req.body.email && req.body.email != null && req.body.email != ""){
-        userToUpdate.email = req.body.email;
+        userToCreate.email = req.body.email;
     }
         
     if(req.body.password && req.body.password != null && req.body.password != ""){
@@ -39,13 +41,16 @@ const signIn = async (req,res,next) => {
         }
         passwordComplexity(complexityOptions).validate(req.body.password);
         
-        userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+        userToCreate.password = bcrypt.hashSync(req.body.password, 10);
     }
 
+    if(!req.body.password){
+       return res.status(404).json({error: " Mot de passe nécessaire"})
+    }
     try {
         let result = await User.create({
-            email: userToUpdate.email,
-            password: userToUpdate.password,
+            email: userToCreate.email,
+            password: userToCreate.password,
             roles: [member.id]
         });
         res.status(201).json(result);

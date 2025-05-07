@@ -8,6 +8,7 @@ const {connect} = require('./framework/connection.js');
 const sync = require('./framework/sync.js');
 const log = require('./middleware/log.middleware.js');
 const logres = require('./middleware/logres.middleware.js');
+const { checkBlackList } = require('./middleware/checkBlackList.middleware.js');
 
 const database = async () => {
     await connect();
@@ -19,6 +20,7 @@ database();
 app.use(express.json());
 app.use(log);
 app.use(logres);
+app.use(checkBlackList);
 
 app.use('/user',userRouter);
 app.use('/auth',authRouter);

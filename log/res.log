@@ -1,0 +1,22 @@
+07/05/2025 12:45:44 GET /auth/ ::1 
+ Content-Type: 
+07/05/2025 12:46:12 GET /auth/signin ::1 
+ Content-Type: text/plain
+07/05/2025 12:46:44 POST /auth/signin ::1 
+ Content-Type: text/plain
+07/05/2025 12:47:41 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:48:19 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:49:41 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:50:37 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:51:42 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:51:54 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:52:05 POST /auth/signin ::1 
+ Content-Type: application/json
+07/05/2025 12:56:19 POST /auth/signin ::1 
+ Content-Type: application/json

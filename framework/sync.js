@@ -2,6 +2,7 @@ const {bdd} = require('./connection.js');
 const User = require('./../model/user.schema.js');
 const Role = require('./../model/role.schema.js');
 const Message = require('./../model/message.schema.js');
+const blacklist = require('./../model/blacklist.schema.js');
 
 const sync = async () => {
     console.log(Role);
