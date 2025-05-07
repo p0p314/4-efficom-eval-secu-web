@@ -1,0 +1,30 @@
+08/04/2025 12:21:52 POST /auth/login ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:27:44 GET /user/1 ::1 
+ Content-Type: 
+16/04/2025 15:28:06 GET /user/1 ::1 
+ Content-Type: 
+16/04/2025 15:28:59 GET /user/1 ::1 
+ Content-Type: 
+16/04/2025 15:29:21 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:31:18 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:52:38 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:57:07 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:57:49 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:58:13 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
+16/04/2025 15:59:02 POST /user/ ::1 
+ Content-Type: application/json 
+ {"email":"avaast@myges.fr","password":"********"}
