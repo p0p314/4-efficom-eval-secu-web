@@ -9,4 +9,4 @@ const limiter = (minute, limit) => {
     })
 }
 
-module.exports = limiter;
+module.exports = {limiter};
