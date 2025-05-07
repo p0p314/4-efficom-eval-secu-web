@@ -26,12 +26,36 @@ const create = async (req, res, next) => {
     }
 }
 
-const update = (req, res, next) => {
-    let result = Message.updateOne(req.body, { id: req.params.id });
-    res.status(201).json(result);
+const update = async (req, res, next) => {
+    try {
+        let message = await Message.findOne({where: {id: req.params.id} });
+
+        if(!message) {
+            res.status(404).json({message: "message not found"});
+        }
+
+        if(message.userId != req.payload.id) {
+            res.status(403).json({error: "You cannot change this message"});
+        }
+        
+        let result = Message.updateOne(req.body, { id: req.params.id });
+        res.status(201).json(result);
+    } catch (E){
+        return res.status(404).json(e.message);
+    }
 }
 
-const remove = (req, res, next) => {
+const remove = async (req, res, next) => {
+    let message = await Message.findOne({where: {id: req.params.id} });
+
+    if(!message) {
+        res.status(404).json({message: "message not found"});
+    }
+
+    if(message.userId != req.payload.id) {
+        res.status(403).json({error: "You cannot change this message"});
+    }
+    
     let result = Message.remove(req.params.id);
     res.status(200).json(result);
 }

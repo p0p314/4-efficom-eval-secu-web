@@ -35,12 +35,12 @@ const create = async (req, res, next) => {
 }
 
 const update = (req, res, next) => {
-    let result = User.updateOne(req.body, { id: req.params.id });
+    let result = User.updateOne(req.body, { id: req.payload.id });
     res.status(201).json(result);
 }
 
 const remove = (req, res, next) => {
-    let result = User.remove(req.params.id);
+    let result = User.remove(req.payload.id);
     res.status(200).json(result);
 }
 
