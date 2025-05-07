@@ -1,15 +1,18 @@
 const User = require('./../model/user.schema.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { passwordComplexity, complexityOptions } = require('../middleware/passwordCheck.middleware.js');
 
 const login = (req, res, next) => {
     let user = User.getByEmail(req.body.email);
     if (!user) {
-        return res.status(401).json({ message: "Login  incorrect." });
+        return res.status(404).json({error: "Email ou mot de passe incorrect"})
     }
+
     if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(401).json({ message: "Mot passe incorrect." });
+        return res.status(404).json({error: "Email ou mot de passe incorrect"})
     }
+
     res.status(200).json({
         id: user.id,
         email: user.email,
@@ -31,9 +34,12 @@ const signIn = async (req,res,next) => {
     }
         
     if(req.body.password && req.body.password != null && req.body.password != ""){
-        if(req.body.password == req.body.confirmPassword) {
-            userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+        if(req.body.password != req.body.confirmPassword) {
+            return res.status(404).json({error: " Mot de passe incorrect"})
         }
+        passwordComplexity(complexityOptions).validate(req.body.password);
+        
+        userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
     }
 
     try {

@@ -29,8 +29,11 @@ const create = async (req, res, next) => {
     
     if(req.body.password && req.body.password != null && req.body.password != ""){
         if(req.body.password == req.body.confirmPassword) {
-            userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
         }
+        passwordComplexity(complexityOptions).validate(req.body.password);
+        userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+
+
     }
     try {
         let result = await User.create({
@@ -51,9 +54,11 @@ const update = (req, res, next) => {
     }
 
     if(req.body.password && req.body.password != null && req.body.password != ""){
-        if(req.body.password == req.body.confirmPassword) {
-            userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+        if(req.body.password != req.body.confirmPassword) {
+             return res.status(404).json({error: " Mot de passe incorrect"})
         }
+        passwordComplexity(complexityOptions).validate(req.body.password);
+        userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
     }
     userToUpdate.save();
     res.status(201).json(userToUpdate);
