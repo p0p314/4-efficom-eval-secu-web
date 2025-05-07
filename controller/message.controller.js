@@ -16,9 +16,20 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
+    let messageTosave = {};
+    
+    if(req.body.title && req.body.title != null && req.body.title != ""){
+        messageTosave.name = req.body.name;
+    }
+    if(req.body.content && req.body.content != null && req.body.content != ""){
+        messageTosave.content = req.body.content;
+    }
+
     try {
         let result = await Message.create({
-            name: req.body.name
+            title: req.body.name,
+            content: req.body.content,
+            userId: req.payload.id
         });
         res.status(201).json(result);
     } catch (e) {
