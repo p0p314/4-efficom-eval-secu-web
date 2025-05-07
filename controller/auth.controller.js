@@ -1,4 +1,4 @@
-const User = require('./../model/user.model.js');
+const User = require('./../model/user.schema.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -17,7 +17,7 @@ const login = (req, res, next) => {
             id: user.id,
             email: user.email,
             roles: user.roles
-        }, "ZXZhbCBzZWN1IHdlYg==")
+        }, process.env.SECRET_KEY)
     });
 }
 

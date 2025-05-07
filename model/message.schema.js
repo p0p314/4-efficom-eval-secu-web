@@ -10,4 +10,5 @@ let Message = bdd.define('message',{
     }
 });
 
-module.Message = Message;
+module.exports = Message;
+
