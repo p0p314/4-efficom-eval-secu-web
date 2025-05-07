@@ -25,7 +25,7 @@ const create = async (req, res, next) => {
     try {
         let result = await User.create({
             email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 4),
+            password: bcrypt.hashSync(req.body.password, 10),
             roles: [member.id]
         });
         res.status(201).json(result);
@@ -35,12 +35,24 @@ const create = async (req, res, next) => {
 }
 
 const update = (req, res, next) => {
-    let result = User.updateOne(req.body, { id: req.payload.id });
-    res.status(201).json(result);
+    let userToUpdate = User.findOne({ where: {id: req.payload.id}})
+    if(req.body.email && req.body.email != null && req.body.email != ""){
+        userToUpdate.email = req.body.email;
+    }
+    
+    if(req.body.password && req.body.password != null && req.body.password != ""){
+        if(req.body.password == req.body.confirmPassword) {
+            userToUpdate.password = bcrypt.hashSync(req.body.password, 10);
+        }
+    }
+    userToUpdate.save();
+    res.status(201).json(userToUpdate);
 }
 
 const remove = (req, res, next) => {
-    let result = User.remove(req.payload.id);
+    let userToRemove = User.findOne({ where: {id: req.payload.id}})
+    
+    userToRemove.destroy();
     res.status(200).json(result);
 }
 
